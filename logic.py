@@ -6,26 +6,27 @@ user_teams = {}
 startgame = 0
 
 # Обработчик команды /start
+
+# Обработчик /start
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    # Создаем inline клавиатуру
     markup = InlineKeyboardMarkup(row_width=2)
     
-    # Создаем кнопки
+    # кнопки
     btn1 = InlineKeyboardButton('🕹️ Играть', callback_data='playbutton')
     btn2 = InlineKeyboardButton('📎 Открыть канал', url='https://t.me/kbf_1')
     
-    # Добавляем кнопки в клавиатуру
+    # клавиатура
     markup.add(btn1, btn2)
     
-    # Отправляем сообщение с клавиатурой
+    # соо с клавиатурой
     bot.send_message(
         message.chat.id,
         "🏆 Добро пожаловать в игрового телеграм-бота по любительскому детскому футбольному соревнованию «КБФ»",
         reply_markup=markup
     )
 
-# Обработчик нажатий на inline кнопки
+# обработчик нажатий 
 @bot.callback_query_handler(func=lambda call: True)
 def handle_callback(call):
     global startgame  # Добавляем global для изменения глобальной переменной
@@ -120,7 +121,7 @@ def handle_callback(call):
 def show_teams(call):
     markup = InlineKeyboardMarkup(row_width=2)
     
-    # Создаем кнопки для разных команд
+    # кнопки разных команд
     bayan_btn = InlineKeyboardButton('⚪ Баян', callback_data='bayan')
     dragons_btn = InlineKeyboardButton('⚫ Драгонс', callback_data='dragons')
     energy_btn = InlineKeyboardButton('🟢 Энергия-Сельбагу', callback_data='energy')
@@ -153,7 +154,7 @@ def show_team_info(call, team_name):
     backbtn = InlineKeyboardButton('🔙 Назад к командам', callback_data='playbutton')
     markup.add(okbtn, backbtn)
     
-    # Разная информация для разных команд
+    # инфо о командах
     if team_name == 'bayan':
         startgame += 1
         team_text = """
